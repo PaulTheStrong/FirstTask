@@ -5,6 +5,9 @@ import com.epam.task.first.logic.logic.ArrayLogic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 public class ArrayLogicTest {
 
     private ArrayLogic arrayLogic = new ArrayLogic();
@@ -47,22 +50,6 @@ public class ArrayLogicTest {
     }
 
     @Test
-    public void testFindMaxShouldThrowExceptionWhenEmptyArrayApplied() {
-        //given
-        Array array = new Array();
-        String expectedMessage = "Array mustn't be empty!";
-
-        //when
-        Exception exception = Assert.assertThrows(IllegalArgumentException.class, () -> {
-            arrayLogic.findMax(array);
-        });
-        String actualMessage = exception.getMessage();
-
-        //then
-        Assert.assertEquals(expectedMessage, actualMessage);
-    }
-
-    @Test
     public void testFindMinShouldFindMinWhenPositiveNumbersApplied() {
         //given
         Array array = new Array(1, 4, 3);
@@ -96,22 +83,6 @@ public class ArrayLogicTest {
 
         //then
         Assert.assertEquals(0, actual);
-    }
-
-    @Test
-    public void testFindMinShouldThrowExceptionWhenEmptyArrayApplied() {
-        //given
-        Array array = new Array();
-        String expectedMessage = "Array mustn't be empty!";
-
-        //when
-        Exception exception = Assert.assertThrows(IllegalArgumentException.class, () -> {
-            arrayLogic.findMin(array);
-        });
-        String actualMessage = exception.getMessage();
-
-        //then
-        Assert.assertEquals(expectedMessage, actualMessage);
     }
 
 
@@ -270,6 +241,58 @@ public class ArrayLogicTest {
         int actual = arrayLogic.countSum(array);
 
         Assert.assertEquals(7, actual);
+    }
+
+    @Test
+    public void testChangeArrayElementsByConditionShouldChangeNegativeElementsWhenNonEmptyArrayApplied() {
+        Array array = new Array(5, 3, -1, -2, 0);
+        List<Integer> elements = array.getElements();
+        Integer[] intArray = new Integer[elements.size()];
+
+        arrayLogic.changeArrayElementsByCondition(array, new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer < 0;
+            }
+        }, 6);
+        array.getElements().toArray(intArray);
+
+        Assert.assertArrayEquals(new Integer[]{5, 3, 6, 6, 0}, intArray);
+
+    }
+
+    @Test
+    public void testChangeArrayElementsByConditionShouldntChangeElementsWhenArrayWithNoSuitableElementsApplied() {
+        Array array = new Array(5, 3, 5, 8, 0);
+        List<Integer> elements = array.getElements();
+        Integer[] intArray = new Integer[elements.size()];
+
+        arrayLogic.changeArrayElementsByCondition(array, new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer < 0;
+            }
+        }, 6);
+        array.getElements().toArray(intArray);
+
+        Assert.assertArrayEquals(new Integer[]{5, 3, 5, 8, 0}, intArray);
+    }
+
+    @Test
+    public void testChangeArrayElementsByConditionShouldntChangeElementsWhenEmptyArrayApplied() {
+        Array array = new Array();
+        List<Integer> elements = array.getElements();
+        Integer[] intArray = new Integer[elements.size()];
+
+        arrayLogic.changeArrayElementsByCondition(array, new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer integer) {
+                return integer < 0;
+            }
+        }, 6);
+        array.getElements().toArray(intArray);
+
+        Assert.assertArrayEquals(new Integer[]{}, intArray);
     }
 
 }

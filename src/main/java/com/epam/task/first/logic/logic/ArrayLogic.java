@@ -3,27 +3,21 @@ package com.epam.task.first.logic.logic;
 import com.epam.task.first.logic.entities.Array;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ArrayLogic {
 
     public int findMax(Array array) {
         List<Integer> elements = array.getElements();
-        if (elements.size() == 0) {
-            throw new IllegalArgumentException("Array mustn't be empty!");
-        }
         int max = elements.get(0);
         for (Integer element : elements) {
             max = max < element ? element : max;
         }
-
         return max;
     }
 
     public int findMin(Array array) {
         List<Integer> elements = array.getElements();
-        if (elements.size() == 0) {
-            throw new IllegalArgumentException("Array mustn't be empty!");
-        }
         int min = elements.get(0);
         for (Integer element : elements) {
             min = min > element ? element : min;
@@ -36,7 +30,7 @@ public class ArrayLogic {
         double avg = 0;
         List<Integer> elements = array.getElements();
         int size = elements.size();
-        for (Integer element : array.getElements()) {
+        for (Integer element : elements) {
             avg += (double)element / size;
         }
         return avg;
@@ -70,9 +64,14 @@ public class ArrayLogic {
         return sum;
     }
 
-    //Не могли бы вы уточнить, по какому именно условию стоит заменять элементы массива?
-    public void changeArrayElementsBySomeCondition(Array array) {
-        throw new UnsupportedOperationException();
+    public void changeArrayElementsByCondition(Array array, Predicate<Integer> predicate, Integer newValue) {
+        List<Integer> elements = array.getElements();
+        for (int i = 0; i < elements.size(); i++) {
+            boolean test = predicate.test(elements.get(i));
+            if (test) {
+                elements.set(i, newValue);
+            }
+        }
     }
 
 }
