@@ -26,3 +26,5 @@ hs_err_pid*
 /.idea/compiler.xml
 /target/classes/META-INF/FirstTask.kotlin_module
 /.idea/uiDesigner.xml
+/target/*
+/.idea/*
