@@ -1,6 +1,6 @@
-package com.epam.task.first.logic.logic;
+package com.epam.task.first.logic;
 
-import com.epam.task.first.logic.entities.Array;
+import com.epam.task.first.entities.Array;
 
 import java.util.List;
 import java.util.function.Predicate;

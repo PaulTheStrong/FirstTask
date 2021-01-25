@@ -1,7 +1,7 @@
-package com.epam.task.first.logic;
+package test.com.epam.task.first.logic;
 
-import com.epam.task.first.logic.entities.Array;
-import com.epam.task.first.logic.logic.ArrayLogic;
+import com.epam.task.first.entities.Array;
+import com.epam.task.first.logic.ArrayLogic;
 import org.junit.Assert;
 import org.junit.Test;
 

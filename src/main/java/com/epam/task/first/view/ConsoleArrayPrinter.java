@@ -1,6 +1,6 @@
-package com.epam.task.first.logic.view;
+package com.epam.task.first.view;
 
-import com.epam.task.first.logic.entities.Array;
+import com.epam.task.first.entities.Array;
 
 public class ConsoleArrayPrinter implements ArrayPrinter {
     public void print(final Array array) {
